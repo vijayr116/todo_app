@@ -5,18 +5,21 @@ class ApiRepository {
   final Logger log = Logger();
   late final Dio _dio;
 
-  static const String _baseUrl = 'https://6a4204947602860e6520abd5.mockapi.io';
+  // static const String _baseUrl = 'https://6a4204947602860e6520abd5.mockapi.io';
+  static const String _baseUrl = 'https://6a4372a26dba791499aab4d1.mockapi.io';
   static const String _notesEndpoint = '/notes';
 
   Future<void> initialize() async {
-    _dio = Dio(BaseOptions(
-      baseUrl: _baseUrl,
-      connectTimeout: const Duration(seconds: 10),
-      receiveTimeout: const Duration(seconds: 10),
-      sendTimeout: const Duration(seconds: 10),
-      headers: {'Content-Type': 'application/json'},
-      validateStatus: (_) => true,
-    ));
+    _dio = Dio(
+      BaseOptions(
+        baseUrl: _baseUrl,
+        connectTimeout: const Duration(seconds: 10),
+        receiveTimeout: const Duration(seconds: 10),
+        sendTimeout: const Duration(seconds: 10),
+        headers: {'Content-Type': 'application/json'},
+        validateStatus: (_) => true,
+      ),
+    );
     log.d("ApiRepository::initialize::Dio initialized with baseUrl: $_baseUrl");
   }
 
@@ -26,12 +29,18 @@ class ApiRepository {
       final response = await _dio.get(_notesEndpoint);
 
       if (response.statusCode == 404) {
-        log.w("ApiRepository::getAllNotes::Resource not found (404) - returning empty list");
+        log.w(
+          "ApiRepository::getAllNotes::Resource not found (404) - returning empty list",
+        );
         return [];
       }
 
-      if (response.statusCode == null || response.statusCode! < 200 || response.statusCode! >= 300) {
-        log.w("ApiRepository::getAllNotes::Unexpected status: ${response.statusCode}");
+      if (response.statusCode == null ||
+          response.statusCode! < 200 ||
+          response.statusCode! >= 300) {
+        log.w(
+          "ApiRepository::getAllNotes::Unexpected status: ${response.statusCode}",
+        );
         return [];
       }
 
@@ -59,8 +68,12 @@ class ApiRepository {
         return null;
       }
 
-      if (response.statusCode == null || response.statusCode! < 200 || response.statusCode! >= 300) {
-        log.w("ApiRepository::getNoteById::Unexpected status: ${response.statusCode}");
+      if (response.statusCode == null ||
+          response.statusCode! < 200 ||
+          response.statusCode! >= 300) {
+        log.w(
+          "ApiRepository::getNoteById::Unexpected status: ${response.statusCode}",
+        );
         return null;
       }
 
@@ -77,12 +90,18 @@ class ApiRepository {
       log.d("ApiRepository::createNote::Creating note");
       final response = await _dio.post(_notesEndpoint, data: data);
 
-      if (response.statusCode == null || response.statusCode! < 200 || response.statusCode! >= 300) {
-        log.w("ApiRepository::createNote::Unexpected status: ${response.statusCode}");
+      if (response.statusCode == null ||
+          response.statusCode! < 200 ||
+          response.statusCode! >= 300) {
+        log.w(
+          "ApiRepository::createNote::Unexpected status: ${response.statusCode}",
+        );
         return null;
       }
 
-      log.d("ApiRepository::createNote::Created note with ID: ${response.data['id']}");
+      log.d(
+        "ApiRepository::createNote::Created note with ID: ${response.data['id']}",
+      );
       return response.data as Map<String, dynamic>;
     } catch (error) {
       log.w("ApiRepository::createNote::Error: $error");
@@ -95,8 +114,12 @@ class ApiRepository {
       log.d("ApiRepository::updateNote::Updating note: $id");
       final response = await _dio.put('$_notesEndpoint/$id', data: data);
 
-      if (response.statusCode == null || response.statusCode! < 200 || response.statusCode! >= 300) {
-        log.w("ApiRepository::updateNote::Unexpected status: ${response.statusCode}");
+      if (response.statusCode == null ||
+          response.statusCode! < 200 ||
+          response.statusCode! >= 300) {
+        log.w(
+          "ApiRepository::updateNote::Unexpected status: ${response.statusCode}",
+        );
         return false;
       }
 
@@ -113,8 +136,12 @@ class ApiRepository {
       log.d("ApiRepository::deleteNote::Deleting note: $id");
       final response = await _dio.delete('$_notesEndpoint/$id');
 
-      if (response.statusCode == null || response.statusCode! < 200 || response.statusCode! >= 300) {
-        log.w("ApiRepository::deleteNote::Unexpected status: ${response.statusCode}");
+      if (response.statusCode == null ||
+          response.statusCode! < 200 ||
+          response.statusCode! >= 300) {
+        log.w(
+          "ApiRepository::deleteNote::Unexpected status: ${response.statusCode}",
+        );
         return false;
       }
 
