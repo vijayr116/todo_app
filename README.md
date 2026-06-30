@@ -1,4 +1,4 @@
-﻿# ✅ Todo App – Offline First Notes Application
+﻿# Todo App – Offline First Notes Application
 
 _"Create, update, and delete notes while offline, then automatically sync them with a Mock REST API when connectivity is restored."_
 
@@ -17,7 +17,7 @@ _"Create, update, and delete notes while offline, then automatically sync them w
 
 ---
 
-## 🏗️ Folder Structure
+## Folder Structure
 
 ```text
 lib/
@@ -36,7 +36,7 @@ lib/
 └── main.dart
 ```
 
-## ✨ Features
+## Features
 
 - Create Notes
 - Edit Notes

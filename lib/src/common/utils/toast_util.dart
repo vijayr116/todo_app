@@ -57,7 +57,7 @@ class ToastUtil {
       context: context,
       type: type,
       style: ToastificationStyle.flat,
-      autoCloseDuration: const Duration(seconds: 5),
+      autoCloseDuration: const Duration(seconds: 2),
       title: Text(
         type == ToastificationType.success
             ? 'Success'
