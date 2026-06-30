@@ -1,51 +1,50 @@
-﻿# ✅ Todo‑App – Offline Flutter + Firebase
+﻿# ✅ Todo App – Offline First Notes Application
 
-_“Create, update, todos while offline, then sync seamlessly when the network returns.”_
-
----
-
-| ✨ Feature               | Detail                                                                       |
-| ------------------------ | ---------------------------------------------------------------------------- |
-| **Offline storage**      | `sqflite` (SQLite 3) as the local cache.                                     |
-| **Realtime cloud sync**  | `cloud_firestore` + `firebase_auth` (anonymous).                             |
-| **Connectivity watcher** | `connectivity_plus` – queues changes when offline, flushes when back online. |
-| **State management**     | `flutter_bloc`, `equatable`, optimistic UI.                                  |
-| **Routing**              | `go_router` (same pattern as dynamic_form).                                  |
-| **DI**                   | `get_it`.                                                                    |
+_"Create, update, and delete notes while offline, then automatically sync them with a Mock REST API when connectivity is restored."_
 
 ---
 
-## 🏗️ Folder structure (condensed)
+| Feature                  | Detail                                                     |
+| ------------------------ | ---------------------------------------------------------- |
+| **Offline storage**      | `sqflite` (SQLite)                                         |
+| **Remote API**           | Mock REST API (JSON Server / MockAPI)                      |
+| **Connectivity watcher** | `connectivity_plus`                                        |
+| **Automatic sync**       | Queues offline operations and syncs when online            |
+| **Conflict resolution**  | Detects local vs remote conflicts and lets the user choose |
+| **State management**     | `flutter_bloc` + `equatable`                               |
+| **Routing**              | `go_router`                                                |
+| **Dependency Injection** | `get_it`                                                   |
 
+---
+
+## 🏗️ Folder Structure
+
+```text
 lib/
-├─ firebase_options.dart ← auto‑gen (FlutterFire CLI)
-├─ src/
-│ ├─ app/ ← MaterialApp, GoRouter
-│ ├─ common/ ← constants • utils • services_locator.dart
-│ │ └─ repos/ ← ApiRepository, PreferencesRepository
-│ └─ todo/
-│ ├─ bloc/ ← TodoBloc (events, states)
-│ ├─ repo/
-│ │ ├─ todo_repository.dart ← orchestrates sync
-│ │ └─ todo_database_repository.dart ← sqflite CRUD
-│ └─ views/
-│ ├─ todo_page.dart ← platform switch
-│ ├─ mobile/… ← UI widgets
-│ └─ todo_page_placeholder.dart ← will add desktop/tablet later
-└─ main.dart ← Firebase.init + DI + runApp
+├── src/
+│   ├── app/
+│   ├── common/
+│   │   ├── constants/
+│   │   ├── services/
+│   │   ├── repos/
+│   │   └── services_locator.dart
+│   └── notes/
+│       ├── bloc/
+│       ├── repo/
+│       ├── models/
+│       └── views/
+└── main.dart
+```
 
-## 🔧 Setup
+## ✨ Features
 
-
-
-1. **Clone & get packages**
-
-   ```bash
-   git clone https://github.com/arulmani70/todo-app.git
-   cd todo-app
-   flutter pub get
-
-   firebase login
-   firebase projects:create todo-app
-   flutterfire configure               # generates firebase_options.dart
-   ```
+- Create Notes
+- Edit Notes
+- Delete Notes
+- Offline-first architecture
+- Automatic synchronization
+- Pending sync queue
+- Connectivity monitoring
+- Conflict detection
+- Conflict resolution dialog
+- Sync status indicators
